@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>結果発表 DEMO</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#09090d;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}
+.stage{height:100dvh;width:100vw;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 45%,#292238 0,#111018 45%,#050507 100%)}
+.scene{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:9vw;opacity:0;transform:scale(.9);transition:.5s}
+.scene.show{opacity:1;transform:scale(1)}
+.big{font-weight:900;font-size:clamp(38px,11vw,76px);line-height:1.15;letter-spacing:.04em}
+.mid{font-weight:800;font-size:clamp(25px,7vw,48px);line-height:1.4}
+.small{font-size:18px;opacity:.8;margin-top:18px}
+.gold{background:linear-gradient(#fff8b2,#ffd43b,#ff9f1c);-webkit-background-clip:text;color:transparent;text-shadow:0 8px 30px #ffb30033}
+#drum .big{animation:pulse .32s infinite alternate}
+@keyframes pulse{to{transform:scale(1.06)}}
+#reveal.show{animation:shake .45s}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.umeko{width:min(62vw,390px);max-height:43vh;object-fit:contain;filter:drop-shadow(0 16px 30px #0008);animation:pop .7s cubic-bezier(.2,1.6,.3,1)}
+@keyframes pop{from{transform:scale(.1) rotate(-8deg);opacity:0}to{transform:scale(1);opacity:1}}
+.confetti{position:absolute;width:10px;height:18px;top:-30px;animation:fall 2.8s linear forwards}
+@keyframes fall{to{transform:translate(var(--x),110vh) rotate(800deg)}}
+.controls{position:absolute;z-index:10;bottom:max(20px,env(safe-area-inset-bottom));display:flex;gap:10px}
+button{border:0;border-radius:999px;padding:12px 18px;font-weight:800;font-size:15px;background:#fff;color:#111;box-shadow:0 5px 20px #0007}
+.badge{display:inline-block;padding:7px 13px;border:1px solid #ffffff55;border-radius:999px;font-size:14px;margin-bottom:20px}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+ <section class="scene show" id="s1"><div><div class="badge">DEMO VERSION</div><div class="big">結果発表。</div></div></section>
+ <section class="scene" id="s2"><div class="mid">先日の投票<br>ありがとうございました！</div></section>
+ <section class="scene" id="s3"><div><div class="mid">一番多かったのは……</div><div class="small">まだ結果は入れてません🤣</div></div></section>
+ <section class="scene" id="drum"><div><div class="big">ドゥルルルルル……</div><div class="small">🥁　🥁　🥁</div></div></section>
+ <section class="scene" id="reveal"><div><div class="mid">＼ 第１位 ／</div><div class="big gold">〇〇診断！！</div><div class="small">〇〇票</div></div></section>
+ <section class="scene" id="last"><div><img class="umeko" src="umeko.PNG"><div class="mid">というわけで<br>公開します。</div><div class="small">投票した責任、取って遊んでな🤣</div></div></section>
+ <div class="controls"><button onclick="play()">▶ もう一回見る</button></div>
+</div>
+<script>
+const ids=["s1","s2","s3","drum","reveal","last"];
+const waits=[0,1500,3000,4700,7200,9300];
+let timers=[];
+function confetti(){
+ const st=document.getElementById("stage");
+ const chars=["🎉","✨","🎊","⭐"];
+ for(let i=0;i<45;i++){
+   let e=document.createElement("div"); e.className="confetti";
+   e.textContent=chars[Math.floor(Math.random()*chars.length)];
+   e.style.left=Math.random()*100+"vw"; e.style.fontSize=(12+Math.random()*18)+"px";
+   e.style.setProperty("--x",(Math.random()*160-80)+"px");
+   e.style.animationDelay=(Math.random()*.5)+"s"; st.appendChild(e);
+   setTimeout(()=>e.remove(),3500);
+ }
+}
+function show(id){
+ ids.forEach(x=>document.getElementById(x).classList.remove("show"));
+ document.getElementById(id).classList.add("show");
+ if(id==="reveal") confetti();
+}
+function play(){
+ timers.forEach(clearTimeout); timers=[];
+ ids.forEach(x=>document.getElementById(x).classList.remove("show"));
+ waits.forEach((w,i)=>timers.push(setTimeout(()=>show(ids[i]),w)));
+}
+play();
+</script>
+</body>
+</html>
