@@ -1,13 +1,27 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>途中経過</title><style>
-*{box-sizing:border-box}body{margin:0;background:#08070b;color:white;font-family:-apple-system,"Hiragino Sans",sans-serif;overflow:hidden}.stage{height:100dvh;position:relative;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#38294a,#09080d 65%)}.scene{position:absolute;opacity:0;transform:scale(.85);transition:.5s;padding:25px;width:100%}.show{opacity:1;transform:scale(1)}h1{font-size:12vw;margin:0;font-weight:900}.sub{font-size:6vw;font-weight:800}.gold{color:#ffd83d}.rank{max-width:480px;margin:20px auto;display:grid;gap:8px}.r{display:grid;grid-template-columns:70px 1fr 70px;background:#ffffff12;border:1px solid #ffffff25;border-radius:16px;padding:11px;font-size:5vw;font-weight:800}.top{border-color:#ffd83d;background:#ffd83d18}.u{position:absolute;width:min(65vw,380px);left:50%;bottom:-70vh;transform:translateX(-50%);z-index:3}.u.go{animation:pop 1s cubic-bezier(.2,1.5,.3,1) forwards}@keyframes pop{60%{bottom:9vh;transform:translateX(-50%) scale(1.1)}100%{bottom:6vh;transform:translateX(-50%) scale(1)}}.u img{width:100%;max-height:55vh;object-fit:contain}.bubble{position:absolute;top:6vh;left:50%;transform:translateX(-50%) scale(.2);opacity:0;background:white;color:#111;padding:15px 20px;border-radius:22px;font-size:5.5vw;font-weight:900;z-index:4;width:85%}.bubble.go{animation:b .5s forwards}@keyframes b{to{opacity:1;transform:translateX(-50%) scale(1)}}button{position:absolute;bottom:15px;z-index:10;border:0;border-radius:30px;padding:12px 18px;font-weight:bold}
+*{box-sizing:border-box}body{margin:0;background:#07070b;color:#fff;font-family:-apple-system,"Hiragino Sans",sans-serif;overflow:hidden}.stage{height:100dvh;position:relative;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#39294b,#09080d 65%)}.scene{position:absolute;inset:0;display:grid;place-items:center;padding:7vw;opacity:0;transform:scale(.9);transition:.45s}.show{opacity:1;transform:scale(1)}h1{font-size:12vw;line-height:1.08;margin:0;font-weight:950}.mid{font-size:7vw;font-weight:900}.small{font-size:4vw;opacity:.75;margin-top:15px}.gold{color:#ffd83d}
+.card{width:min(88vw,520px);padding:28px 20px;border-radius:28px;background:#ffffff10;border:1px solid #ffffff2a;box-shadow:0 18px 50px #0008}.place{font-size:8vw;font-weight:950}.num{font-size:22vw;line-height:1;font-weight:950;margin:10px}.votes{font-size:8vw;font-weight:900}.drop{animation:drop .65s cubic-bezier(.2,1.45,.3,1)}@keyframes drop{0%{transform:translateY(-65vh) scale(.7);opacity:0}70%{transform:translateY(18px) scale(1.05);opacity:1}100%{transform:none;opacity:1}}
+.u{position:absolute;width:min(66vw,390px);left:50%;bottom:-70vh;transform:translateX(-50%);z-index:4}.u.go{animation:pop 1s cubic-bezier(.2,1.5,.3,1) forwards}@keyframes pop{60%{bottom:10vh;transform:translateX(-50%) scale(1.1)}100%{bottom:6vh;transform:translateX(-50%) scale(1)}}.u img{width:100%;max-height:55vh;object-fit:contain}.bubble{position:absolute;top:6vh;left:50%;transform:translateX(-50%) scale(.2);opacity:0;background:#fff;color:#111;padding:16px;border-radius:22px;font-size:5.5vw;font-weight:900;z-index:5;width:86%}.bubble.go{animation:b .5s forwards}@keyframes b{to{opacity:1;transform:translateX(-50%) scale(1)}}button{position:absolute;bottom:15px;z-index:10;border:0;border-radius:30px;padding:12px 18px;font-weight:900}
 </style></head><body><div class="stage">
-<div class="scene show" id="a"><h1>投票<br>途中経過。</h1><div class="sub">まだ決着はついてません🤣</div></div>
-<div class="scene" id="b"><div class="sub">現在の投票数は…</div><h1 class="gold">16票</h1></div>
-<div class="scene" id="c"><h1>ドゥルルルル…🥁</h1></div>
-<div class="scene" id="d"><div class="sub">ただいまの順位</div><div class="rank">
-<div class="r top"><b>🥇</b><b>②</b><b>5票</b></div><div class="r"><b>🥈</b><b>④</b><b>3票</b></div><div class="r"><b>🥈</b><b>⑦</b><b>3票</b></div><div class="r"><b>4位</b><b>③</b><b>2票</b></div><div class="r"><b>4位</b><b>⑥</b><b>2票</b></div><div class="r"><b>6位</b><b>⑤</b><b>1票</b></div><div class="r"><b>7位</b><b>①</b><b>0票</b></div></div></div>
-<div class="u" id="u"><img src="umeko.PNG"></div><div class="bubble" id="e">②が現在トップ🤣<br>でも、まだ途中やで。</div><button onclick="play()">▶ もう一回見る</button></div>
+<section class="scene show" id="intro"><div><h1>投票<br>途中経過。</h1><div class="small">下から順番に発表します🤣</div></div></section>
+<section class="scene" id="total"><div><div class="mid">現在</div><h1 class="gold">16票</h1></div></section>
+<section class="scene" id="rank"><div class="card drop" id="card"><div class="place" id="place"></div><div class="num" id="num"></div><div class="votes" id="votes"></div></div></section>
+<div class="u" id="u"><img src="umeko.PNG"></div><div class="bubble" id="bubble">現在トップは②！<br>5票やで🤣<br><small>※まだ途中経過</small></div>
+<button onclick="play()">▶ もう一回見る</button></div>
 <script>
-let T=[];function s(id){["a","b","c","d"].forEach(x=>document.getElementById(x).classList.remove("show"));if(id)document.getElementById(id).classList.add("show")}
-function play(){T.forEach(clearTimeout);let u=document.getElementById("u"),e=document.getElementById("e");u.className="u";e.className="bubble";s("a");[[()=>s("b"),1600],[()=>s("c"),3300],[()=>s("d"),5200],[()=>{s(null);u.classList.add("go")},8200],[()=>e.classList.add("go"),9200]].forEach(x=>T.push(setTimeout(x[0],x[1])))}play();
+let timers=[];
+const data=[
+["7位","①","0票"],["6位","⑤","1票"],["4位","③","2票"],["4位","⑥","2票"],["2位","④","3票"],["2位","⑦","3票"],["1位","②","5票"]
+];
+function only(id){["intro","total","rank"].forEach(x=>document.getElementById(x).classList.remove("show"));if(id)document.getElementById(id).classList.add("show")}
+function reveal(d){
+ document.getElementById("place").textContent=d[0];document.getElementById("num").textContent=d[1];document.getElementById("votes").textContent=d[2];
+ const c=document.getElementById("card");c.classList.remove("drop");void c.offsetWidth;c.classList.add("drop");only("rank");
+}
+function play(){
+ timers.forEach(clearTimeout);timers=[];const u=document.getElementById("u"),b=document.getElementById("bubble");u.className="u";b.className="bubble";only("intro");
+ const q=(f,t)=>timers.push(setTimeout(f,t));q(()=>only("total"),1500);
+ let t=3000;data.forEach((d,i)=>{q(()=>reveal(d),t);t+=i===data.length-1?1700:1250});
+ q(()=>{only(null);u.classList.add("go")},t);q(()=>b.classList.add("go"),t+900);
+}play();
 </script></body></html>
