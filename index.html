@@ -3,64 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>結果発表 DEMO</title>
+<title>結果発表 DEMO - UMEKO MOTION</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#09090d;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}
-.stage{height:100dvh;width:100vw;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 45%,#292238 0,#111018 45%,#050507 100%)}
-.scene{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:9vw;opacity:0;transform:scale(.9);transition:.5s}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050507;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}
+.stage{height:100dvh;width:100vw;display:grid;place-items:center;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 43%,#30263f 0,#121019 48%,#050507 100%)}
+.scene{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:8vw;opacity:0;transform:scale(.9);pointer-events:none;transition:opacity .42s,transform .42s}
 .scene.show{opacity:1;transform:scale(1)}
-.big{font-weight:900;font-size:clamp(38px,11vw,76px);line-height:1.15;letter-spacing:.04em}
-.mid{font-weight:800;font-size:clamp(25px,7vw,48px);line-height:1.4}
-.small{font-size:18px;opacity:.8;margin-top:18px}
-.gold{background:linear-gradient(#fff8b2,#ffd43b,#ff9f1c);-webkit-background-clip:text;color:transparent;text-shadow:0 8px 30px #ffb30033}
-#drum .big{animation:pulse .32s infinite alternate}
-@keyframes pulse{to{transform:scale(1.06)}}
-#reveal.show{animation:shake .45s}
-@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-.umeko{width:min(62vw,390px);max-height:43vh;object-fit:contain;filter:drop-shadow(0 16px 30px #0008);animation:pop .7s cubic-bezier(.2,1.6,.3,1)}
-@keyframes pop{from{transform:scale(.1) rotate(-8deg);opacity:0}to{transform:scale(1);opacity:1}}
-.confetti{position:absolute;width:10px;height:18px;top:-30px;animation:fall 2.8s linear forwards}
-@keyframes fall{to{transform:translate(var(--x),110vh) rotate(800deg)}}
-.controls{position:absolute;z-index:10;bottom:max(20px,env(safe-area-inset-bottom));display:flex;gap:10px}
-button{border:0;border-radius:999px;padding:12px 18px;font-weight:800;font-size:15px;background:#fff;color:#111;box-shadow:0 5px 20px #0007}
+.big{font-weight:950;font-size:clamp(40px,12vw,80px);line-height:1.08;letter-spacing:.03em}
+.mid{font-weight:900;font-size:clamp(25px,7.5vw,50px);line-height:1.35}
+.small{font-size:clamp(15px,4vw,20px);opacity:.82;margin-top:18px}
+.gold{background:linear-gradient(#fffbd0,#ffd83d,#ff9e18);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 5px 15px #ffad0066)}
 .badge{display:inline-block;padding:7px 13px;border:1px solid #ffffff55;border-radius:999px;font-size:14px;margin-bottom:20px}
+#drum.show .big{animation:drum .16s infinite alternate}
+@keyframes drum{from{transform:translateX(-4px) scale(.99)}to{transform:translateX(4px) scale(1.03)}}
+#reveal.show{animation:screenShake .55s}
+@keyframes screenShake{0%,100%{transform:translate(0) scale(1)}20%{transform:translate(-10px,3px) scale(1.02)}40%{transform:translate(10px,-3px) scale(1.02)}60%{transform:translate(-7px,2px)}80%{transform:translate(7px,-2px)}}
+.flash{position:absolute;inset:0;background:white;opacity:0;pointer-events:none;z-index:8}
+.flash.go{animation:flash .5s}
+@keyframes flash{0%{opacity:0}18%{opacity:.9}100%{opacity:0}}
+.umekoWrap{position:absolute;left:50%;bottom:-75vh;z-index:5;transform:translateX(-50%);width:min(76vw,430px);text-align:center}
+.umekoWrap.enter{animation:launch 1.15s cubic-bezier(.18,1.45,.3,1) forwards}
+@keyframes launch{
+  0%{bottom:-75vh;transform:translateX(-50%) rotate(-10deg) scale(.55)}
+  60%{bottom:19vh;transform:translateX(-50%) rotate(5deg) scale(1.08)}
+  78%{bottom:11vh;transform:translateX(-50%) rotate(-3deg) scale(.95)}
+  100%{bottom:13vh;transform:translateX(-50%) rotate(0) scale(1)}
+}
+.umekoWrap.dance{bottom:13vh;animation:sway .85s ease-in-out infinite alternate}
+@keyframes sway{from{transform:translateX(-50%) rotate(-3deg) translateY(0)}to{transform:translateX(-50%) rotate(3deg) translateY(-12px)}}
+.umeko{width:100%;max-height:57vh;object-fit:contain;filter:drop-shadow(0 20px 35px #000a)}
+.speech{position:absolute;z-index:6;left:50%;top:7vh;transform:translateX(-50%) scale(.2);opacity:0;width:min(88vw,520px);padding:16px 18px;border-radius:24px;background:#fff;color:#171717;font-weight:900;font-size:clamp(20px,5.7vw,32px);box-shadow:0 12px 35px #0007}
+.speech.show{animation:bubble .55s cubic-bezier(.2,1.5,.3,1) forwards}
+@keyframes bubble{to{transform:translateX(-50%) scale(1);opacity:1}}
+.confetti{position:absolute;z-index:7;top:-40px;animation:fall 3s linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translate(var(--x),115vh) rotate(900deg)}}
+.controls{position:absolute;z-index:20;bottom:max(16px,env(safe-area-inset-bottom));display:flex;gap:10px}
+button{border:0;border-radius:999px;padding:12px 18px;font-weight:850;font-size:15px;background:#fff;color:#111;box-shadow:0 5px 20px #0008}
+.hint{position:absolute;bottom:75px;font-size:12px;opacity:.45;z-index:10}
 </style>
 </head>
 <body>
 <div class="stage" id="stage">
+ <div class="flash" id="flash"></div>
+
  <section class="scene show" id="s1"><div><div class="badge">DEMO VERSION</div><div class="big">結果発表。</div></div></section>
  <section class="scene" id="s2"><div class="mid">先日の投票<br>ありがとうございました！</div></section>
  <section class="scene" id="s3"><div><div class="mid">一番多かったのは……</div><div class="small">まだ結果は入れてません🤣</div></div></section>
  <section class="scene" id="drum"><div><div class="big">ドゥルルルルル……</div><div class="small">🥁　🥁　🥁</div></div></section>
  <section class="scene" id="reveal"><div><div class="mid">＼ 第１位 ／</div><div class="big gold">〇〇診断！！</div><div class="small">〇〇票</div></div></section>
- <section class="scene" id="last"><div><img class="umeko" src="umeko.PNG"><div class="mid">というわけで<br>公開します。</div><div class="small">投票した責任、取って遊んでな🤣</div></div></section>
+
+ <div class="umekoWrap" id="umekoWrap"><img class="umeko" src="umeko.PNG" alt="うめこ"></div>
+ <div class="speech" id="speech">投票した責任、<br>取って遊んでな🤣</div>
+
+ <div class="hint">画面録画してストーリーにも使えるで</div>
  <div class="controls"><button onclick="play()">▶ もう一回見る</button></div>
 </div>
+
 <script>
-const ids=["s1","s2","s3","drum","reveal","last"];
-const waits=[0,1500,3000,4700,7200,9300];
+const ids=["s1","s2","s3","drum","reveal"];
 let timers=[];
 function confetti(){
  const st=document.getElementById("stage");
- const chars=["🎉","✨","🎊","⭐"];
- for(let i=0;i<45;i++){
-   let e=document.createElement("div"); e.className="confetti";
+ const chars=["🎉","✨","🎊","⭐","💥"];
+ for(let i=0;i<65;i++){
+   const e=document.createElement("div");
+   e.className="confetti";
    e.textContent=chars[Math.floor(Math.random()*chars.length)];
-   e.style.left=Math.random()*100+"vw"; e.style.fontSize=(12+Math.random()*18)+"px";
-   e.style.setProperty("--x",(Math.random()*160-80)+"px");
-   e.style.animationDelay=(Math.random()*.5)+"s"; st.appendChild(e);
-   setTimeout(()=>e.remove(),3500);
+   e.style.left=Math.random()*100+"vw";
+   e.style.fontSize=(12+Math.random()*20)+"px";
+   e.style.setProperty("--x",(Math.random()*190-95)+"px");
+   e.style.animationDelay=(Math.random()*.65)+"s";
+   st.appendChild(e); setTimeout(()=>e.remove(),3900);
  }
 }
 function show(id){
  ids.forEach(x=>document.getElementById(x).classList.remove("show"));
- document.getElementById(id).classList.add("show");
- if(id==="reveal") confetti();
+ if(id) document.getElementById(id).classList.add("show");
 }
 function play(){
  timers.forEach(clearTimeout); timers=[];
- ids.forEach(x=>document.getElementById(x).classList.remove("show"));
- waits.forEach((w,i)=>timers.push(setTimeout(()=>show(ids[i]),w)));
+ document.querySelectorAll(".confetti").forEach(x=>x.remove());
+ const u=document.getElementById("umekoWrap"), sp=document.getElementById("speech"), fl=document.getElementById("flash");
+ u.className="umekoWrap"; sp.classList.remove("show"); fl.classList.remove("go");
+ show("s1");
+ const q=(fn,t)=>timers.push(setTimeout(fn,t));
+ q(()=>show("s2"),1500);
+ q(()=>show("s3"),3100);
+ q(()=>show("drum"),4800);
+ q(()=>{show("reveal"); fl.classList.add("go"); confetti()},7300);
+ q(()=>{show(null); u.classList.add("enter")},8750);
+ q(()=>{u.className="umekoWrap dance"; sp.classList.add("show"); confetti()},10000);
 }
 play();
 </script>
