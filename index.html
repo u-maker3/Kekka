@@ -4,14 +4,14 @@
 .u{position:absolute;width:min(66vw,390px);left:50%;bottom:-70vh;transform:translateX(-50%);z-index:4}.u.go{animation:pop 1s cubic-bezier(.2,1.5,.3,1) forwards}@keyframes pop{60%{bottom:10vh;transform:translateX(-50%) scale(1.1)}100%{bottom:6vh;transform:translateX(-50%) scale(1)}}.u img{width:100%;max-height:55vh;object-fit:contain}.bubble{position:absolute;top:6vh;left:50%;transform:translateX(-50%) scale(.2);opacity:0;background:#fff;color:#111;padding:16px;border-radius:22px;font-size:5.5vw;font-weight:900;z-index:5;width:86%}.bubble.go{animation:b .5s forwards}@keyframes b{to{opacity:1;transform:translateX(-50%) scale(1)}}button{position:absolute;bottom:15px;z-index:10;border:0;border-radius:30px;padding:12px 18px;font-weight:900}
 </style></head><body><div class="stage">
 <section class="scene show" id="intro"><div><h1>投票<br>途中経過。</h1><div class="small">下から順番に発表します🤣</div></div></section>
-<section class="scene" id="total"><div><div class="mid">現在</div><h1 class="gold">16票</h1></div></section>
+<section class="scene" id="total"><div><div class="mid">現在</div><h1 class="gold">31票</h1></div></section>
 <section class="scene" id="rank"><div class="card drop" id="card"><div class="place" id="place"></div><div class="num" id="num"></div><div class="votes" id="votes"></div></div></section>
-<div class="u" id="u"><img src="umeko.PNG"></div><div class="bubble" id="bubble">現在トップは②！<br>5票やで🤣<br><small>※まだ途中経過</small></div>
+<div class="u" id="u"><img src="umeko.PNG"></div><div class="bubble" id="bubble">現在トップは②！👑<br>9票やで🤣<br><small>※まだ途中経過</small><br><br><b>次回更新は明日！</b></div>
 <button onclick="play()">▶ もう一回見る</button></div>
 <script>
 let timers=[];
 const data=[
-["7位","①","0票"],["6位","⑤","1票"],["4位","③","2票"],["4位","⑥","2票"],["2位","④","3票"],["2位","⑦","3票"],["1位","②","5票"]
+["7位","①","1票"],["6位","⑤","2票"],["4位","③","4票"],["4位","⑥","4票"],["3位","⑦","5票"],["2位","④","6票"],["1位 👑","②","9票"]
 ];
 function only(id){["intro","total","rank"].forEach(x=>document.getElementById(x).classList.remove("show"));if(id)document.getElementById(id).classList.add("show")}
 function reveal(d){
